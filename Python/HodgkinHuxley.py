@@ -45,4 +45,5 @@
 		#I = CM * dV/dt + Ii
 		#Parallel because of current measurements when dV/dt = 0
 			#and setting I=0
+	
 		
