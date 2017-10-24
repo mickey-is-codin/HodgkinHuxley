@@ -92,6 +92,55 @@
 			#n0 = (alphaSubn0)/(alphaSubn0 + betaSubn0)
 			#This means the resting state proportion of particles inside is equal to the proportion of rate outside to inside over the total rates
 			
+			
+
+#Function and variables hierarchy:
+
+#Given variables from the paper:
+#Cm = 1.0
+#Vna = -115
+#Vk = +12
+#Vl = -10.613
+#gbarNa = 120
+#gbarK = 36
+#gbarL = 0.3
+
+#Functions
+#alpha and beta are the "bottom" of the hierarchy. They're at the bottom and functions of the root function which is characteristic of an Ordinary Differential Equation
+
+#alpha = f(Vm) ONCE WE LEARN EULER METHOD WE'LL BE ABLE TO USE THIS
+#beta = f(Vm) OTHERWISE IT'S ITERATIVE
+
+#tau = f(alpha, beta)
+
+#n = 
+#m = 
+#h = 
+	#Of the form: Xinfinity - (Xinfinity - X0) * e ^ (-t/tau)
+
+#Gk = f(Vm, t, n)
+#Gna = f(Vm, t, m, h)
+
+#Jc = f(Cm, dVmdt)
+#Jk = f(Gk, Vm, Vk)
+#Jna = f(Gna, Vm, Vna)
+#Jl = Gl(Vm, Vl)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		
