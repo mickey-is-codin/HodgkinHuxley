@@ -266,6 +266,48 @@
 				#If you take that delta and add it to the current point you'll get the next point
 
 				#This means that if we're given y0 the first one as well as the actual equation we can solve for every point along that equation.
+		Taylor Method:
+			Euler method + taylor expansion
+			Adds lots of calculus
+			You have to actually calculate derivatives
+
+	Runge-Kutta Method
+		Instead of using a single slope we're using a number of slopes.
+		Euler: Simplicity
+			Next point is equal to the current point plus the slope * distance to next point
+		Taylor: Accurate method using infinite derivatives
+			Can't use because we're given y', not y'infinity
+		Want to increase accuracy without increasing number of derivatives
+
+		Calculate slope as in Euler:L
+			k1 = y'(tn,yn)
+
+		Normally: get yn+1
+
+		Instead: yn + 0.5
+			yn+0.5 = yn + h/2 * k1
+			The slope halfway between the current time and the next time (t + h)
+
+		Then calculate the slope at that halfway point
+			k2 = y'(tn + 0.5h,yn + 0.5hk1)
+
+		Take a weighted average of the slopes
+			kbar = 0k1 + 1k2 = k2
+
+		Calculate yn+1
+			yn+1 = yn + hk2
+
+		Calculate more slopes for more accuracy
+			4th Order: 0k1 + 1k2 + 2k3 + 3k4
+			Four slopes for fourth order
+				In between every dt?
+
+		Given Plot of function that we don't know
+			We start by calculating k1
+				k1 is the slope at y' which is halfway between h's
+			y' is a function of y and t
+				The halfway point in t is the same from t to t
+				The yn is different
 
 
 

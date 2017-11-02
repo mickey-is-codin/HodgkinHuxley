@@ -2,30 +2,12 @@ import math
 import sys
 import matplotlib
 
-#User defining variables
-
-def InitialConditions():
-
 def GetUserInput():
 	#Hard-Coded Variables
-	"""
-	Cm = 
-	Vna = 
-	Vk = 
-	Vl = 
-	gBarNa = 
-	gBarK = 
-	gBarL = 
 
-	a = 
-	ro = 
-	ri = 
-
-	Ke = 
-	"""
 
 	#User Input Variables
-	Cm = input("Membrane Conductance (mF/cm^2: ") #Paper Value: 1.0
+	'''Cm = input("Membrane Conductance (mF/cm^2: ") #Paper Value: 1.0
 
 	Vna = input("Sodium voltage (mV): ") #Paper Value: -115
 	Vk = input("Potassium voltage (mV): ") #Paper Value: +12
@@ -39,7 +21,7 @@ def GetUserInput():
 	ro = input("Outer resistance (ohms): ")
 	ri = input("Inner resistance (ohms): ")
 
-	Ke = input("Applied current (amps): ")
+	Ke = input("Applied current (amps): ")'''
 
 def Gna(gBarNa, m, h):
 	Gna = gBarNa * m^3 * h
@@ -74,8 +56,15 @@ def HuxleyRelations(a, ro, ri, Jm):
 	d2Vmdt2 = Jm * 2 * pi * a * (ro + ri)
 
 def main():
-	InitialConditions()
-	GetUserInput()
+	Cm = 1.0
+	Vna = -115.0
+	Vk = 12.0
+	Vl = -10.613
+	gBarNa = 120.0
+	gBarK = 36.0
+	gBarL = 0.3
+
+	
 
 if __name__ == "__main__":
 	main()
