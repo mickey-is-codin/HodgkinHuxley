@@ -9,7 +9,7 @@
 
 import matplotlib.pyplot as plt     # used for plotting results
 import numpy as np                  # used only for constants, exponents, and such
-import firstLast_nth_order_ODE as soln     # import irange() and rk() methods from pt. 3
+import mickeySmith_nth_order_ODE as soln     # import irange() and rk() methods from pt. 3
 
 
 # Note:  HH defines Vm = Vo-Vi, whereas we typically define Vm = Vi-Vo so using
@@ -22,36 +22,81 @@ import firstLast_nth_order_ODE as soln     # import irange() and rk() methods fr
 # Constants
 # Define gna_bar, gk_bar, gl_bar, Vk, Vna, Vl, and Cm
 # All from Table 3 on page 520 of the Hodgkin, Huxley, 1952 paper
-gk_bar =          # mS / cm^2
-gna_bar =        # mS / cm^2
-gl_bar =         # mS / cm^2
-Vk =              # mV
-Vna =           # mV
-Vl =         # mV chosen to make total ionic current zero at resting potential: dV/dt = 0
-Cm =               # microFahrads / cm ^2
+gk_bar = 36         # mS / cm^2
+gna_bar = 120       # mS / cm^2
+gl_bar = 0.3        # mS / cm^2
+Vk = 12             # mV
+Vna = -115          # mV
+Vl = -10.613        # mV chosen to make total ionic current zero at resting potential: dV/dt = 0
+Cm = 1.0              # microFahrads / cm ^2
 
 
 # First of four 1st order ODEs
 # This one solves for Vm': equation (26) in the Hodgkin, Huxley, 1952 paper
 def vmp_eq_26(step, Vnmh):
+    #Vnmh is analogous to u in the old test
+    #IRAZOQUI TALKED ABOUT THIS
+
+    if (step < 1):
+        print("Step: ", step, "Solutions: ", Vnmh)
+
+    Vm = Vnmh[0]
+    n = Vnmh[1]
+    m = Vnmh[2]
+    h = Vnmh[3]
+
+    #Jm = f(Je) Je is built with time
+    #Vm includes Je
+
+    vm_prime = (1/Cm) * ((100) - (gk_bar * (n**4) * (Vm - Vk)) + (gna_bar*(m**3)*h*(Vm - Vna)) + (gl_bar * (Vm - Vl)))
     return vm_prime
 
 
 # Second of four 1st order ODEs
 # This one solves for n: equation (7) in the Hodgkin, Huxley, 1952 paper
 def np_eq_7(step, Vnmh):
+    Vm = Vnmh[0]
+    n = Vnmh[1]
+    m = Vnmh[2]
+    h = Vnmh[3]
+
+    alpha_n = (0.01 * (Vm + 10)) / (np.exp((Vm + 10) / 10) - 1)
+    beta_n = 0.125 * np.exp(Vm / 80)
+    n = alpha_n / (alpha_n + beta_n)   
+   
+    n_prime = alpha_n * (1 - n) - beta_n * n
     return n_prime
 
 
 # Third of four 1st order ODEs
 # This one solves for m: equation (15) in the Hodgkin, Huxley, 1952 paper
 def mp_eq_15(step, Vnmh):
+    Vm = Vnmh[0]
+    n = Vnmh[1]
+    m = Vnmh[2]
+    h = Vnmh[3]
+
+    alpha_m = (0.1 * (Vm + 25)) / (np.exp((Vm + 25) / 10) - 1)
+    beta_m = 4 * np.exp(Vm / 18)
+    m = alpha_m / (alpha_m + beta_m)
+
+    m_prime = alpha_m * (1 - m) - beta_m * m
     return m_prime
 
 
 # Fourth of four 1st order ODEs
 # This one solves for h: equation (16) in the Hodgkin, Huxley, 1952 paper
 def hp_eq_16(step, Vnmh):
+    Vm = Vnmh[0]
+    n = Vnmh[1]
+    m = Vnmh[2]
+    h = Vnmh[3]
+
+    alpha_h = 0.07 * np.exp(Vm / 20)
+    beta_h = 1 / (np.exp((Vm + 30) / 10) + 1)
+    h = alpha_h / (alpha_h + beta_h)
+
+    h_prime = alpha_h * (1 - h) - beta_h * h
     return h_prime
 
 
@@ -101,6 +146,7 @@ if __name__ == '__main__':
 
     # Find membrane voltage Vm, and the ionic currents Jk and Jna
     initial_values = [Vm0, n0, m0, h0]                          # Initial values
+    print("Initial Values: ", initial_values)
     odes = [vmp_eq_26, np_eq_7, mp_eq_15, hp_eq_16]             # ODEs
     # Solve as system of four 1st order ODEs
     solution = soln.rk(odes, interval, step_size, initial_values)

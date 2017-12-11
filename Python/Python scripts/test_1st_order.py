@@ -1,7 +1,6 @@
 #! /usr/local/bin/python3.4
 # test_1st_order.py
 
-
 import numpy as np                  # For constants and trig functions
 import matplotlib.pyplot as plt     # For plotting
 

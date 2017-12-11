@@ -8,7 +8,7 @@ import numpy as np                  # For constants and trig functions
 import matplotlib.pyplot as plt     # For plotting
 
 # Import the homeowrk solutions
-import pedroIrazoqui_2nd_order_ODE as soln     # import instructor solutions
+import mickeySmith_2nd_order_ODE as soln     # import instructor solutions
 # Import the file specified at the user prompt
 submission = input('Please enter the homework file name you wish to test.\n>>')
 # Strip the '.py' if it exists
@@ -115,8 +115,10 @@ def ode2_u2(x, u1, u2):
 # Define all the tests for hw.euler method
 class TestEuler(unittest.TestCase):
     # Numerical approximation using Euler method
-    y_initial = -0.4                        # Initial value (given)
-    y_prime_initial = -0.6                  # Initial value (given)
+    #y_initial = -0.4                        # Initial value (given)
+    #y_prime_initial = -0.6                  # Initial value (given)
+    y_initial = np.sin(start)              # Initial value
+    y_prime_initial = np.cos(start)        # Initial value
     test1, test1p = hw.euler(ode1_u1, ode1_u2, x_hw, h, y_initial, y_prime_initial)
     answer1, answer1p = soln.euler(ode1_u1, ode1_u2, x_soln, h, y_initial, y_prime_initial)
 
@@ -178,8 +180,10 @@ class TestEuler(unittest.TestCase):
 # Define all the tests for hw.euler method
 class TestRK(unittest.TestCase):
     # Numerical approximation using RK method
-    y_initial = -0.4                        # Initial value (given)
-    y_prime_initial = -0.6                  # Initial value (given)
+    #y_initial = -0.4                        # Initial value (given)
+    #y_prime_initial = -0.6                  # Initial value (given)
+    y_initial = np.sin(start)              # Initial value
+    y_prime_initial = np.cos(start)        # Initial value
     test1, test1p = hw.rk(ode1_u1, ode1_u2, x_hw, h, y_initial, y_prime_initial)
     answer1, answer1p = soln.rk(ode1_u1, ode1_u2, x_soln, h, y_initial, y_prime_initial)
 

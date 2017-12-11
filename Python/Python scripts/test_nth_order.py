@@ -8,7 +8,7 @@ import numpy as np                  # For constants and trig functions
 import matplotlib.pyplot as plt     # For plotting
 
 # Import the homeowrk solutions
-import soln_nth_order_ODE as soln     # import instructor solutions
+import mickeySmith_nth_order_ODE as soln     # import instructor solutions
 # Import the file specified at the user prompt
 submission = input('Please enter the homework file name you wish to test.\n>>')
 # Strip the '.py' if it exists
